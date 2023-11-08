@@ -5,13 +5,12 @@ import pickle
 
 import pandas as pd
 
-from starter.basic_cleaning import basic_cleaning
 from starter.data_segregation import data_segregation
 from starter.ml.data import process_data
 from starter.ml.model import train_model, inference, compute_model_metrics
 
 
-def pipeline(data_file):
+def train_model_pipeline(data_file):
     """
     This function performs the entire machine learning pipeline.
     Returns
@@ -23,9 +22,6 @@ def pipeline(data_file):
     """
     # Read data
     data = pd.read_csv(data_file)
-
-    # Basic cleaning
-    # data = basic_cleaning(data)
 
     # Data segregation
     train, test = data_segregation(data)

@@ -1,7 +1,7 @@
-from starter.pipeline import pipeline
+from starter.train_model_pipeline import train_model_pipeline
 
 if __name__ == '__main__':
     data_file = 'data/census_clean.csv'
 
     # run the pipeline
-    pipeline(data_file)
+    train_model_pipeline(data_file)
