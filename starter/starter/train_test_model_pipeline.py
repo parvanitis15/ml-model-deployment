@@ -10,7 +10,7 @@ from starter.ml.model import train_model, inference, compute_model_metrics
 
 def train_test_model_pipeline(data):
     # Data segregation
-    train, test = data_segregation(data, test_size=0.20)
+    train, test = data_segregation(data, test_size=0.20, random_state=8)
 
     # Get the categorical features
     cat_features = [
