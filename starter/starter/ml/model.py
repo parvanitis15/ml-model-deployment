@@ -1,10 +1,18 @@
+"""
+This file contains the functions used to train and evaluate the machine learning model.
+
+Author: P. Arvanitis
+"""
+
 from sklearn.metrics import fbeta_score, precision_score, recall_score
+
+from sklearn.ensemble import RandomForestClassifier
 
 
 # Optional: implement hyperparameter tuning.
-def train_model(X_train, y_train):
+def train_model(X_train, y_train, n_estimators=100, max_depth=10, random_state=42):
     """
-    Trains a machine learning model and returns it.
+    Trains a machine learning model (Random Forest) and returns it.
 
     Inputs
     ------
@@ -17,8 +25,13 @@ def train_model(X_train, y_train):
     model
         Trained machine learning model.
     """
+    # Create a Random Forest Classifier model.
+    model = RandomForestClassifier(n_estimators=n_estimators, max_depth=max_depth, random_state=random_state)
 
-    pass
+    # Fit the model to the training data.
+    model.fit(X_train, y_train)
+
+    return model
 
 
 def compute_model_metrics(y, preds):
@@ -48,7 +61,7 @@ def inference(model, X):
 
     Inputs
     ------
-    model : ???
+    model : object
         Trained machine learning model.
     X : np.array
         Data used for prediction.
@@ -57,4 +70,5 @@ def inference(model, X):
     preds : np.array
         Predictions from the model.
     """
-    pass
+    preds = model.predict(X)
+    return preds
