@@ -4,11 +4,15 @@ This script performs data cleaning on census data.
 Author: P. Arvanitis
 """
 
-# Open census.csv file, remove all spaces from the column names, and save it as census_clean.csv.
-# Hint: Use the pandas library.
+# Open census.csv file, remove all spaces and save it as census_clean.csv
 
-import pandas as pd
+with open('census.csv', 'r') as file:
+    lines = file.readlines()
 
-df = pd.read_csv('census.csv')
-df.columns = df.columns.str.replace(' ', '')
-df.to_csv('census_clean.csv', index=False)
+    # Remove spaces
+    lines = [line.replace(' ', '') for line in lines]
+
+    # Write to census_clean.csv
+    with open('census_clean.csv', 'w') as file:
+        for line in lines:
+            file.write(line)
