@@ -37,4 +37,12 @@ jobs:
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics --exclude sanitycheck.py
     - name: Test with pytest
       run: |
+        cd starter
         pytest
+    - name: Deploy using Render
+      # Only run this step if the branch is master
+      if: github.ref == 'refs/heads/master'
+      env:
+        deploy_url: ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
+      run: |
+        curl "$deploy_url"
