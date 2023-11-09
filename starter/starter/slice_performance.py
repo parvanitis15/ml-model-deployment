@@ -66,7 +66,7 @@ def compute_categorical_features_performance(data, model, cat_features, encoder,
         plt.title(f'F-beta for {feature}')
         plt.xticks(rotation=90)
         plt.tight_layout()
-        plt.savefig(f'slices_results/f1/{feature}_fbeta.png')
+        plt.savefig(f'slice_results/f1/{feature}_fbeta.png')
         plt.close()
 
         # Plot the precision results for the feature
@@ -75,7 +75,7 @@ def compute_categorical_features_performance(data, model, cat_features, encoder,
         plt.title(f'Precision for {feature}')
         plt.xticks(rotation=90)
         plt.tight_layout()
-        plt.savefig(f'slices_results/precision/{feature}_precision.png')
+        plt.savefig(f'slice_results/precision/{feature}_precision.png')
         plt.close()
 
         # Plot the recall results for the feature
@@ -84,10 +84,10 @@ def compute_categorical_features_performance(data, model, cat_features, encoder,
         plt.title(f'Recall for {feature}')
         plt.xticks(rotation=90)
         plt.tight_layout()
-        plt.savefig(f'slices_results/recall/{feature}_recall.png')
+        plt.savefig(f'slice_results/recall/{feature}_recall.png')
         plt.close()
 
     if save_to_file:
-        results.to_csv('slices_results/slice_performance.csv', index=False)
+        results.to_csv('slice_results/slice_output.csv', index=False)
 
     return results

@@ -1,3 +1,9 @@
+"""
+This file contains the FastAPI app and the code for the API, with a GET method to welcome the user
+and a POST method to perform inference.
+
+Author: P. Arvanitis
+"""
 # Put the code for your API here.
 from fastapi import FastAPI
 import pandas as pd

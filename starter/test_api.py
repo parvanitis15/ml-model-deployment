@@ -1,5 +1,6 @@
 """
-This file contains 3 tests for the API: one for the GET and two for the POST method, one that tests each prediction.
+This file contains 5 tests for the API: one for the GET and four for the POST method, two of which test both a
+false and a true prediction, and two of which test a successful and an unsuccessful prediction.
 
 Author: P. Arvanitis
 """
@@ -34,12 +35,13 @@ def test_root():
 
 def test_predict_false():
     """
-    This function tests the predict endpoint with a false prediction.
+    This function tests the predict endpoint with a prediction of <=50K.
     """
     # Load the data
     data = pd.read_csv('data/census_clean.csv')
+
     # Find a data row with a salary of <=50K
-    data = data[data['salary'] == '<=50K'].iloc[0]
+    data = data[data['salary'] == '<=50K'].iloc[0]  # Get the first row with a salary of <=50K
 
     # Get X
     X = data.drop(['salary'])
@@ -66,6 +68,44 @@ def test_predict_false():
 
     # Check the response content
     assert response.json() == {"prediction": 0}
+
+
+def test_predict_true():
+    """
+    This function tests the predict endpoint with a prediction of >50K.
+    """
+    # Load the data
+    data = pd.read_csv('data/census_clean.csv')
+
+    # Find a data row with a salary of >50K
+    data = data[data['salary'] == '>50K'].iloc[1]  # Get the second row because it comes out as a true positive
+
+    # Get X
+    X = data.drop(['salary'])
+
+    # Create a dictionary from the data
+    X_dict = dict(X)
+
+    # Convert all numeric values of dict to int
+    for key, value in X_dict.items():
+        if isinstance(value, np.int64):
+            X_dict[key] = int(value)
+
+    # Convert all '-' in keys to '_'
+    X_dict = {key.replace('-', '_'): value for key, value in X_dict.items()}
+
+    X_json = json.dumps(X_dict)
+
+    # Make a request to the API
+    response = client.post("/predict", data=X_json)
+
+    print(response.json())
+
+    # Check the response status code
+    assert response.status_code == 200
+
+    # Check the response content
+    assert response.json() == {"prediction": 1}
 
 
 def test_predict_successful():
