@@ -36,6 +36,8 @@ if __name__ == '__main__':
     X_json = json.dumps(X_dict)
 
     # Make a request to the API
-    requests.post("https://ml-model-deployment-wh8x.onrender.com/predict", data=X_json)
+    response = requests.post("https://ml-model-deployment-wh8x.onrender.com/predict", data=X_json)
 
-    # print(response.json())
+    # Print the response
+    print(response.status_code)
+    print(response.json())

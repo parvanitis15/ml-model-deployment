@@ -31,6 +31,29 @@ class CensusData(BaseModel):
     hours_per_week: int
     native_country: str
 
+    model_config = {
+        "json_schema_extra": {
+            "examples": [
+                {
+                    "age": 25,
+                    "workclass": "Private",
+                    "fnlgt": 77116,
+                    "education": "Bachelors",
+                    "education_num": 13,
+                    "marital_status": "Never-married",
+                    "occupation": "Tech-support",
+                    "relationship": "Not-in-family",
+                    "race": "White",
+                    "sex": "Male",
+                    "capital_gain": 2000,
+                    "capital_loss": 0,
+                    "hours_per_week": 40,
+                    "native_country": "United-States"
+                }
+            ]
+        }
+    }
+
 
 @app.get("/")
 async def root():
