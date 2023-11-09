@@ -39,8 +39,16 @@ def compute_categorical_features_performance(data, model, cat_features, encoder,
         for value in data[feature].unique():
             subset = data[data[feature] == value]
 
+            # Get X
+            X = subset.drop(['salary'], axis=1)
+
             # Compute model predictions for subset
-            preds, y = inference_model_pipeline(subset, model, encoder, lb)
+            preds = inference_model_pipeline(X, model, encoder, lb)
+
+            # Get y
+            y = subset['salary']
+            # Convert y to binary
+            y = lb.transform(y.values).ravel()
 
             # Compute model metrics for subset
             precision, recall, fbeta = compute_model_metrics(y, preds)

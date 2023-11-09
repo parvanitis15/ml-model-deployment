@@ -21,10 +21,18 @@ if __name__ == '__main__':
     encoder = pickle.load(open('model/encoder.pkl', 'rb'))
     lb = pickle.load(open('model/lb.pkl', 'rb'))
 
-    # run the pipeline
-    preds, y = inference_model_pipeline(data, model, encoder, lb)
+    # Get X
+    X = data.drop(['salary'], axis=1)
 
-    # Compute model metrics
+    # run inference
+    preds = inference_model_pipeline(X, model, encoder, lb)
+
+    # Get y
+    y = data['salary']
+    # Convert y to binary
+    y = lb.transform(y.values).ravel()
+
+    # Compute metrics
     precision, recall, fbeta = compute_model_metrics(y, preds)
     print(f"Accuracy: {(preds == y).mean()}")
     print(f"Precision: {precision}")
